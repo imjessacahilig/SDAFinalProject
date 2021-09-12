@@ -76,7 +76,7 @@ public class XYZCompanyFinanceApp {
                 permanent.setLastName(lastName);
                 permanent.setAge(age);
                 permanent.setSalary(salary);
-                boolean isSaved = saveAsObject("permanent.csv", permanent.toString());
+                boolean isSaved = saveToFile("permanent.csv", permanent.toString());
                 System.out.println(isSaved ? "Employee data saved." : "An error occurred. Unable to save data");
 
                 break;
