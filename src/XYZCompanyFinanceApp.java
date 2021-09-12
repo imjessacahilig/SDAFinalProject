@@ -1,8 +1,13 @@
+import base.Employee;
+
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class XYZCompanyFinanceApp {
 
     private static Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
 
         System.out.println("[1] - Add Employee\n" + "[2] - Compute Company income\n" + "[3] - Inventory");
@@ -13,6 +18,7 @@ public class XYZCompanyFinanceApp {
             }
             break;
             case 2: {
+                computeIncome();
             }
             break;
 
@@ -31,7 +37,11 @@ public class XYZCompanyFinanceApp {
 
     }
 
-    private static void addEmployee(){
+    private static void computeIncome() {
+
+    }
+
+    private static void addEmployee() {
 
         System.out.println("First name:");
         String firstName = input.next();
@@ -45,12 +55,19 @@ public class XYZCompanyFinanceApp {
         System.out.println("(1) Contractual ; (2) Permanent");
         int status = input.nextInt();
         switch (status) {
-            case 1:{
+            case 1: {
                 Contractual contractual = new Contractual();
                 contractual.setFirstName(firstName);
                 contractual.setLastName(lastName);
                 contractual.setAge(age);
                 contractual.setSalary(salary);
+              //  boolean isSaved = saveToFile("contractual.csv", contractual.toString());
+              //  System.out.println(isSaved ? "Employee data saved." : "An error occurred. Unable to save data");
+
+                ArrayList<Contractual> list = getAllContractual();
+                for (Contractual c : list) {
+                    System.out.println(c.getSalary());
+                }
                 break;
             }
             case 2: {
@@ -59,8 +76,57 @@ public class XYZCompanyFinanceApp {
                 permanent.setLastName(lastName);
                 permanent.setAge(age);
                 permanent.setSalary(salary);
+                boolean isSaved = saveAsObject("permanent.csv", permanent.toString());
+                System.out.println(isSaved ? "Employee data saved." : "An error occurred. Unable to save data");
+
                 break;
             }
+        }
+
+
+    }
+
+
+    // sample save object in a file
+    private static boolean saveAsObject(String fileName, Object object) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(fileName, true);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(object);
+            objectOut.close();
+        } catch (IOException e) {
+
+            return false;
+        } finally {
+            return true;
+        }
+
+    }
+
+
+    private static ArrayList<Contractual> getAllContractual() {
+
+        ArrayList<Contractual> list = new ArrayList<>();
+        try {
+            FileReader reader = new FileReader("contractual.csv");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] value = line.split(";");
+                Contractual c = new Contractual();
+                c.setFirstName(value[0]);
+                c.setLastName(value[1]);
+                c.setAge(Integer.parseInt(value[2]));
+                c.setSalary(Double.parseDouble(value[3]));
+
+                list.add(c);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return list;
         }
     }
 }
