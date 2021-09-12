@@ -13,4 +13,9 @@ public class Permanent extends Employee {
         return (workingDays * netSalary - (sss+ pagibig+philhealth));
 
     }
+
+    @Override
+    public String toString() {
+        return this.getFirstName()+";"+this.getLastName()+";"+ this.getAge()+";"+this.getSalary()+";P";
+    }
 }

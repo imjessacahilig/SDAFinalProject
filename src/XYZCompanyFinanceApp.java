@@ -61,8 +61,8 @@ public class XYZCompanyFinanceApp {
                 contractual.setLastName(lastName);
                 contractual.setAge(age);
                 contractual.setSalary(salary);
-              //  boolean isSaved = saveToFile("contractual.csv", contractual.toString());
-              //  System.out.println(isSaved ? "Employee data saved." : "An error occurred. Unable to save data");
+                boolean isSaved = saveToFile("contractual.csv", contractual.toString());
+                System.out.println(isSaved ? "Employee data saved." : "An error occurred. Unable to save data");
 
                 ArrayList<Contractual> list = getAllContractual();
                 for (Contractual c : list) {
@@ -86,6 +86,23 @@ public class XYZCompanyFinanceApp {
 
     }
 
+    private static boolean saveToFile(String fileName, String value) {
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+            writer.write(value + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return false;
+        } finally {
+
+            return true;
+        }
+
+    }
 
     // sample save object in a file
     private static boolean saveAsObject(String fileName, Object object) {

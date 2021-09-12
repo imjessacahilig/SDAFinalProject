@@ -6,4 +6,11 @@ public class Contractual extends Employee {
     public Double onCompute(int workingDays) {
         return (workingDays * this.getSalary());
     }
+
+
+    @Override
+    public String toString() {
+        return this.getFirstName()+";"+this.getLastName()+";"+ this.getAge()+";"+this.getSalary()+";C";
+    }
+
 }
