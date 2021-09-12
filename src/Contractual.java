@@ -10,7 +10,7 @@ public class Contractual extends Employee {
 
     @Override
     public String toString() {
-        return this.getFirstName()+";"+this.getLastName()+";"+ this.getAge()+";"+this.getSalary()+";C";
+        return this.getFirstName()+";"+this.getLastName()+";"+ this.getAge()+";"+this.getSalary();
     }
 
 }

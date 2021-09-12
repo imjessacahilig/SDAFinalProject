@@ -38,5 +38,18 @@ public class Item {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return this.getName()+";"+this.getPrice()+";"+ this.getSold()+";"+this.getQuantity();
+    }
 
+    public double computeSales(){
+
+        return this.sold * this.price;
+    }
+
+    public int computeRemainingItem(){
+
+        return this.quantity - this.sold;
+    }
 }
